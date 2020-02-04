@@ -240,30 +240,6 @@ class ThreeCellsCNNAttractor(Attractor):
     zn = -z-self.s*h1+self.r*h2+h3
     return xn, yn, zn
 
-class AizawaAttractor(Attractor):
-  bl_idname = "curve.aizawa_attractor_add"
-  bl_label = "Aizawa"
-  bl_options = {"REGISTER", "UNDO"}
-
-  npoints = get_npoints()
-  params = ["a", "b", "c", "d", "e", "f"]
-  a = get_prop("Aizawa", "a", 0.95)
-  b = get_prop("Aizawa", "b", 0.7)
-  c = get_prop("Aizawa", "c", 0.6)
-  d = get_prop("Aizawa", "d", 3.5)
-  e = get_prop("Aizawa", "e", 0.25)
-  f = get_prop("Aizawa", "f", 0.1)
-  x = get_prop("Aizawa", "x", 0.1)
-  y = get_prop("Aizawa", "y", 0.0)
-  z = get_prop("Aizawa", "z", 0.0)
-  dt = get_prop("Aizawa", "dt", 0.01)
-
-  def iterate(self, x, y, z):
-    xn = (z-self.b)*x-self.d*y
-    yn = self.d*x+(z-self.b)*y
-    zn = self.c+self.a*z-(pow(z,3)/3)-(pow(x,2)+pow(y,2))*(1+self.e*z)+self.f*z*pow(x,3)
-    return xn, yn, zn
-
 class ArneodoAttractor(Attractor):
   bl_idname = "curve.arneodo_attractor_add"
   bl_label = "Arneodo"
