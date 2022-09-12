@@ -15,6 +15,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # Corrected by Spirou4D@laposte.net, 2022-12-09.
 
+# 12/09/2022 7bitretro/Googylip added TSUCS1 Attractor
+
 import bpy
 import math
 
@@ -25,7 +27,7 @@ from bpy.props import IntProperty
 
 bl_info = {
   "author": "mike.tyka@gmail.com",
-  "blender": (3, 30, 0),
+  "blender": (2, 90, 0),
   "category": "Add Curve",
   "description": "Creates a strange attractor curve",
   "location": "View3D > Add > Curve > Attractors",
@@ -1387,6 +1389,31 @@ class ThomasAttractor(Object_OT_Attractor):
         zn = -self.b*z+math.sin(x)
         return xn, yn, zn
 
+# TSUCS1 Attractor added by 7bitretro/googyflip 12/09/22
+class TSUCS1(Object_OT_Attractor):
+    bl_idname = "curve.tsucs1_attractor_add"
+    bl_label = "TSUCS1"
+    bl_options = {"REGISTER", "UNDO"}
+
+    npoints : get_npoints()
+    params = ["a", "b", "d", "e", "l"]
+    a : get_prop("TSUCS1", "a", 40)
+    b : get_prop("TSUCS1", "b", 0.833)
+    d : get_prop("TSUCS1", "d", 0.5)
+    e : get_prop("TSUCS1", "e", 0.65)
+    l : get_prop("TSUCS1", "l", 20)
+    x : get_prop("TSUCS1", "x", 0.1)
+    y : get_prop("TSUCS1", "y", 0.0)
+    z : get_prop("TSUCS1", "z", 0.0)
+    dt : get_prop("TSUCS1", "dt", 0.001)
+
+    def iterate(self, x, y, z):
+        xn = self.a * (y - x) + self.d * x * z
+        yn = self.l * y - x * z
+        zn = self.b * z + x * y - self.e * x * x
+        return xn, yn, zn
+
+
 class MENU_MT_attractors(bpy.types.Menu):
     bl_idname= "MENU_MT_attractors"
     bl_label= "Strange Attractors"
@@ -1453,6 +1480,7 @@ class MENU_MT_attractors(bpy.types.Menu):
         layout.operator("curve.threelayer_attractor_add",text="3-Layer")
         layout.operator("curve.wangsun_attractor_add", text="Wang-Sun")
         layout.operator("curve.yuwang_attractor_add", text="Yu-Wang")
+        layout.operator("curve.tsucs1_attractor_add", text="TSUCS1")
 
 class INFO_MT_curve_attractor_add(bpy.types.Menu):
     bl_idname = "INFO_MT_curve_attractor_add"
@@ -1520,6 +1548,7 @@ class INFO_MT_curve_attractor_add(bpy.types.Menu):
         layout.operator("curve.threelayer_attractor_add",text="3-Layer")
         layout.operator("curve.wangsun_attractor_add", text="Wang-Sun")
         layout.operator("curve.yuwang_attractor_add", text="Yu-Wang")
+        layout.operator("curve.tsucs1_attractor_add", text="TSUCS1")
 
 def menu_func(self, context):
     self.layout.menu("INFO_MT_curve_attractor_add", icon="PLUGIN")
@@ -1595,7 +1624,8 @@ SprottLinzSAttractor,
 SprottNAttractor,
 SprottRAttractor,
 StrizhakKawczynskiAttractor,
-ThomasAttractor
+ThomasAttractor,
+TSUCS1
 )
 
 #Register and unregister all classes
