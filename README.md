@@ -32,6 +32,8 @@ Select that and an attractor of your choice (Lorenz is a good place to start).
 
 Corrected by Spirou4D@laposte.net, 2022-12-09
 
+@Googyflip added TSUCS1 Attracttor, 12/09/2022
+
 Works with Blender version 3.3
 Installation instructions: Go to Edit->Preferences
 Select Add-ons from the tabs on the left of the Window. 
