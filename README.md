@@ -29,6 +29,9 @@ Curve menu. At the bottom there should now be an entry "Attractors...".
 Select that and an attractor of your choice (Lorenz is a good place to start).
 
 ## attractor_blender_3_3.py 
+
+Corrected by Spirou4D@laposte.net, 2022-12-09
+
 Works with Blender version 3.3
 Installation instructions: Go to Edit->Preferences
 Select Add-ons from the tabs on the left of the Window. 
